@@ -883,9 +883,11 @@ a {
 
 /* === VIDEOS SECTION === */
 .slide-videos {
-    background: radial-gradient(ellipse at 30% 50%, rgba(108, 92, 231, 0.08) 0%, transparent 50%),
-        radial-gradient(ellipse at 70% 50%, rgba(6, 182, 212, 0.06) 0%, transparent 40%),
+    background: radial-gradient(ellipse at 30% 20%, rgba(108, 92, 231, 0.1) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 80%, rgba(6, 182, 212, 0.06) 0%, transparent 40%),
         var(--bg-primary);
+    padding: 80px 0;
+    overflow: hidden;
 }
 
 .orb-6 {
@@ -897,55 +899,124 @@ a {
     animation-delay: -1s;
 }
 
+.videos-header {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    z-index: 2;
+}
+
 .videos-subtitle {
     font-size: 1.1rem;
     color: var(--text-secondary);
     max-width: 600px;
     line-height: 1.7;
     margin-top: -40px;
-    margin-bottom: 60px;
+    margin-bottom: 50px;
 }
 
-.videos-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 280px);
-    justify-content: center;
-    gap: 32px;
-}
-
-.video-card {
-    position: relative;
-    border-radius: var(--radius-xl);
+/* Marquee Container */
+.marquee-container {
+    width: 100%;
     overflow: hidden;
+    position: relative;
+    padding: 12px 0;
+}
+
+.marquee-container::before,
+.marquee-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 120px;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.marquee-container::before {
+    left: 0;
+    background: linear-gradient(90deg, var(--bg-primary) 0%, transparent 100%);
+}
+
+.marquee-container::after {
+    right: 0;
+    background: linear-gradient(-90deg, var(--bg-primary) 0%, transparent 100%);
+}
+
+.marquee-track {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+}
+
+.marquee-left {
+    animation: marqueeLeft 60s linear infinite;
+}
+
+.marquee-right {
+    animation: marqueeRight 60s linear infinite;
+}
+
+@keyframes marqueeLeft {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes marqueeRight {
+    0% {
+        transform: translateX(-50%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.marquee-container:hover .marquee-track {
+    animation-play-state: paused;
+}
+
+/* Video Cards */
+.video-card {
+    flex-shrink: 0;
+    width: 200px;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
     background: var(--bg-card);
     border: 1px solid var(--border-subtle);
     transition: var(--transition-smooth);
-    flex-shrink: 0;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
 }
 
-.video-card:hover {
-    border-color: var(--border-accent);
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 60px rgba(108, 92, 231, 0.2),
-        0 0 40px rgba(108, 92, 231, 0.1);
-}
-
-.video-card-glow {
+.video-card::before {
+    content: '';
     position: absolute;
-    top: -1px;
-    left: -1px;
-    right: -1px;
-    bottom: -1px;
-    border-radius: var(--radius-xl);
+    inset: -1px;
+    border-radius: 17px;
     background: var(--gradient-primary);
     opacity: 0;
     z-index: -1;
     transition: opacity 0.4s ease;
-    filter: blur(12px);
 }
 
-.video-card:hover .video-card-glow {
-    opacity: 0.35;
+.video-card:hover {
+    border-color: var(--border-accent);
+    transform: scale(1.05);
+    box-shadow: 0 12px 40px rgba(108, 92, 231, 0.25),
+        0 0 30px rgba(108, 92, 231, 0.1);
+    z-index: 5;
+}
+
+.video-card:hover::before {
+    opacity: 0.4;
 }
 
 .video-wrapper {
@@ -953,14 +1024,15 @@ a {
     aspect-ratio: 9 / 16;
     position: relative;
     overflow: hidden;
-    border-radius: var(--radius-xl);
+    border-radius: 16px;
 }
 
 .video-wrapper iframe {
     width: 100%;
     height: 100%;
     border: none;
-    border-radius: var(--radius-xl);
+    border-radius: 16px;
+    pointer-events: none;
 }
 
 /* === NAVIGATION DOTS === */
@@ -1025,9 +1097,12 @@ a {
         gap: 24px;
     }
 
-    .videos-grid {
-        grid-template-columns: repeat(3, 220px);
-        gap: 20px;
+    .video-card {
+        width: 170px;
+    }
+
+    .videos-header {
+        padding: 0 24px;
     }
 
     .nav-dots {
@@ -1098,11 +1173,17 @@ a {
         height: 1px;
     }
 
-    .videos-grid {
-        grid-template-columns: 1fr;
-        max-width: 300px;
-        margin: 0 auto;
-        gap: 24px;
+    .video-card {
+        width: 150px;
+    }
+
+    .videos-header {
+        padding: 0 20px;
+    }
+
+    .marquee-container::before,
+    .marquee-container::after {
+        width: 40px;
     }
 
     .nav-dots {
