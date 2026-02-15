@@ -907,10 +907,10 @@ a {
 }
 
 .videos-grid {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 280px);
     justify-content: center;
     gap: 32px;
-    flex-wrap: wrap;
 }
 
 .video-card {
@@ -949,8 +949,8 @@ a {
 }
 
 .video-wrapper {
-    width: 280px;
-    height: 498px;
+    width: 100%;
+    aspect-ratio: 9 / 16;
     position: relative;
     overflow: hidden;
     border-radius: var(--radius-xl);
@@ -1026,12 +1026,8 @@ a {
     }
 
     .videos-grid {
-        gap: 24px;
-    }
-
-    .video-wrapper {
-        width: 240px;
-        height: 427px;
+        grid-template-columns: repeat(3, 220px);
+        gap: 20px;
     }
 
     .nav-dots {
@@ -1103,12 +1099,10 @@ a {
     }
 
     .videos-grid {
-        gap: 20px;
-    }
-
-    .video-wrapper {
-        width: 260px;
-        height: 462px;
+        grid-template-columns: 1fr;
+        max-width: 300px;
+        margin: 0 auto;
+        gap: 24px;
     }
 
     .nav-dots {
