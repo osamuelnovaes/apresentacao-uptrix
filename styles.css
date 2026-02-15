@@ -1035,6 +1035,40 @@ a {
     pointer-events: none;
 }
 
+/* Clickable overlay on marquee cards */
+.slide-videos .video-card {
+    cursor: pointer;
+}
+
+.slide-videos .video-card::after {
+    content: '▶';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 52px;
+    height: 52px;
+    background: rgba(108, 92, 231, 0.85);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: #fff;
+    opacity: 0;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 10;
+    backdrop-filter: blur(8px);
+    text-indent: 3px;
+    line-height: 52px;
+    text-align: center;
+}
+
+.slide-videos .video-card:hover::after {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
 /* === NAVIGATION DOTS === */
 .nav-dots {
     position: fixed;

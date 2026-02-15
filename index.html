@@ -592,6 +592,15 @@
     </nav>
 
     <script src="script.js"></script>
+    <script>
+        // Make marquee video cards open the videos page
+        document.querySelectorAll('.slide-videos .video-card').forEach(card => {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', () => {
+                window.open('videos.html', '_blank');
+            });
+        });
+    </script>
 </body>
 
 </html>
